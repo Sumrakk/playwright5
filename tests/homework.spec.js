@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { MainPage, RegisterPage, ProfilePage, EditorPage, ArticlePage} from "./pages/index";
+import { MainPage, RegisterPage, ProfilePage, EditorPage, ArticlePage} from "../pages/index";
 import { faker } from "@faker-js/faker";
 
 const URL = 'https://realworld.qa.guru/#/';
@@ -16,7 +16,7 @@ test.describe('Авторизация',() => {
         await registerPage.login();
     });
 
-    test ('Создание поста', async({
+    test ('Создание статьи авторизованным пользователем', async({
         page,
     }) => {
         const post = {
@@ -35,7 +35,7 @@ test.describe('Авторизация',() => {
         await expect(page.getByRole('paragraph')).toContainText(post.text);
     });
 
-    test ('Создание коммента', async({
+    test ('Добавление комментария на первую статью', async({
         page,
     }) => {
         const comment = faker.word.words(1)
@@ -49,7 +49,7 @@ test.describe('Авторизация',() => {
         await expect(page.getByRole('main')).toContainText(comment);
     });
 
-    test ('Редактирование поста', async({
+    test ('Редактирование собственной статьи', async({
         page,
     }) => {
         const post = {
@@ -71,7 +71,7 @@ test.describe('Авторизация',() => {
         await expect(page.getByRole('main')).toContainText(post.text);
     });
 
-    test ('Удаление поста', async({
+    test.only ('Удаление собственной статьи', async({
         page,
     }) => {
 
@@ -80,16 +80,12 @@ test.describe('Авторизация',() => {
 
         await mainPage.gotoProfile();
         await mainPage.gotoFirstPost();
-        page.on('dialog', dialog => {
-        console.log('Диалог:', dialog.message());
-        dialog.accept();
-        });
         await articlePage.deletePost();
         await expect(page).toHaveURL(URL);
     });
 });
 
- test ('Редактирование информации пользователя', async({
+ test ('Редактирование информации пользователя через настройки профиля', async({
         page,
     }) => {
         const mainPage = new MainPage(page);

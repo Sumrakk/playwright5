@@ -2,8 +2,8 @@
 export class RegisterPage {
 
 	user = {
-		email: 'mail@mail.ru',
-		password: '12345',
+		email: 'testMail@mail.ru',
+		password: 'QWEasd123',
 	}
 	
     constructor(page) {

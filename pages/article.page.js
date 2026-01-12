@@ -1,6 +1,7 @@
 export class ArticlePage {
     constructor(page){ 
         //техническое описание страницы
+        this.page = page;
         this.editButton = page.getByRole('button', { name: 'Edit Article' }).first();
         this.deleteButton = page.getByRole('button', { name: 'Delete Article' }).first();;
         this.textboxComment = page.getByRole('textbox', { name: 'Write a comment...' });
@@ -16,6 +17,10 @@ export class ArticlePage {
         await this.editButton.click();
     }
     async deletePost (){
+        this.page.on('dialog', dialog => {
+        console.log('Диалог:', dialog.message());
+        dialog.accept();
+        });
         await this.deleteButton.click();
     }
 }
