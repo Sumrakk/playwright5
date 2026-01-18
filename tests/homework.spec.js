@@ -31,8 +31,8 @@ test.describe('Авторизация',() => {
 
         await mainPage.gotoCreatePost();
         await editorPage.createPost(post);
-        await expect(page.getByRole('heading')).toContainText(post.title);
-        await expect(page.getByRole('paragraph')).toContainText(post.text);
+        await expect(editorPage.titlePost).toContainText(post.title);
+        await expect(editorPage.textPost).toContainText(post.text);
     });
 
     test ('Добавление комментария на первую статью', async({
@@ -46,7 +46,7 @@ test.describe('Авторизация',() => {
         await mainPage.gotoGlobalPosts();
         await mainPage.gotoFirstPost();
         await articlePage.createComment(comment);
-        await expect(page.getByRole('main')).toContainText(comment);
+        await expect(articlePage.commentTxt).toContainText(comment);
     });
 
     test ('Редактирование собственной статьи', async({
@@ -67,11 +67,11 @@ test.describe('Авторизация',() => {
         await mainPage.gotoFirstPost();
         await articlePage.editPostBut();
         await editorPage.editPost(post);
-        await expect(page.getByRole('heading')).toContainText(post.title);
-        await expect(page.getByRole('main')).toContainText(post.text);
+        await expect(editorPage.titlePost).toContainText(post.title);
+        await expect(editorPage.textPost).toContainText(post.text);
     });
 
-    test.only ('Удаление собственной статьи', async({
+    test('Удаление собственной статьи', async({
         page,
     }) => {
 
@@ -85,7 +85,7 @@ test.describe('Авторизация',() => {
     });
 });
 
- test ('Редактирование информации пользователя через настройки профиля', async({
+ test.only ('Редактирование информации пользователя через настройки профиля', async({
         page,
     }) => {
         const mainPage = new MainPage(page);
@@ -110,5 +110,5 @@ test.describe('Авторизация',() => {
         await mainPage.gotoProfile();
         await mainPage.gotoProfileSettings();
         await registerPage.updateProfile(userEdit);
-        await expect(page.getByText(userEdit.name)).toBeVisible();
+        await expect(mainPage.userName).toContainText(userEdit.name);
     });
