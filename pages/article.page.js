@@ -6,6 +6,7 @@ export class ArticlePage {
         this.deleteButton = page.getByRole('button', { name: 'Delete Article' }).first();;
         this.textboxComment = page.getByRole('textbox', { name: 'Write a comment...' });
         this.commentButton = page.getByRole('button', { name: 'Post Comment' });
+        this.commentTxt = page.getByRole('main');
     }
     //Бизнесовые действия со страницей
     async createComment(comment = 'NICE!'){

@@ -12,6 +12,7 @@ export class MainPage {
         this.firstPost =  page.locator('.preview-link').first();
         this.togleProfile = page.locator('.nav-item.dropdown .dropdown-toggle');
         this.sourceCode = page.getByRole('navigation').getByRole('link', { name: ' Source code' });
+        this.userName = page.getByRole('navigation');
     }
     //Бизнесовые действия со страницей
     async gotoRegister(){

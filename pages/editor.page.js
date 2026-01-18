@@ -7,6 +7,8 @@ export class EditorPage {
         this.tagsPost = page.getByRole('textbox', { name: 'Enter tags' });
         this.publishButton = page.getByRole('button', { name: 'Publish Article' });
         this.updateButton = page.getByRole('button', { name: 'Update Article' });
+        this.titlePost = page.getByRole('heading');
+        this.textPost = page.getByRole('paragraph');
     }
     //Бизнесовые действия со страницей
     async createPost(post){
